@@ -10,11 +10,14 @@ package pqheap;
  * @author Stephanie
  */
 public class PQHeap {
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    
+    Element[] array; 
+
+    public PQHeap(int maxElms) {
+        
+        array = new Element[maxElms];
+        
+        
     }
     
 }
