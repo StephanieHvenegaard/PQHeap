@@ -19,7 +19,8 @@ public class Heapsort {
 	int n = 0;
 	Scanner sc = new Scanner(System.in);
 	while (sc.hasNextInt()) {
-	    pq.insert(new Element(sc.nextInt(),null));
+            int i = sc.nextInt();
+	    pq.insert(new Element(i,null));
 	    n++;
        }
 	while (n > 0){

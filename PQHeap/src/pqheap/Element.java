@@ -11,8 +11,8 @@ package pqheap;
  */
 public class Element {
 
-    private int key;
-    private Object data;
+    private int key; // parrent 
+    private Object data; 
 
     public Element(int i, Object o) {
         this.key = i;
