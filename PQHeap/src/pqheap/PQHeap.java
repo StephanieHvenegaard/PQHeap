@@ -1,11 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package pqheap;
-
-/*
  * @author Stephanie sthve16@student.sdu.dk
  * @author Simon sije817@student.sdu.dk
  * @author Joakim joala09@student.sdu.dk
@@ -17,8 +10,7 @@ public class PQHeap implements PQ {
     public PQHeap(int maxElms) {
         elements = new Element[maxElms];
     }
-
-    @Override
+    
     public Element extractMin() {
         // Swapper first and last element
         Element temp = elements[0];
@@ -31,13 +23,14 @@ public class PQHeap implements PQ {
         return temp;
     }
 
-    @Override
+    //inserts the elements into the array at the index after the last non-empty index.
     public void insert(Element e) {
         lastHeapIndex++;
         elements[lastHeapIndex] = e;
         Sort();
     }
 
+    //used to create the sudo ordered heapstructure.
     private void makeHeap(int length, int index) {
         int smallest = index;
         int leftChild = getLeftChildIndex(index);
@@ -57,6 +50,7 @@ public class PQHeap implements PQ {
         }
     }
 
+    //sorts the array in accordance to the heap structure.
     private void Sort() {
         int length = lastHeapIndex+1;
         for (int i = length / 2 - 1; i >= 0; i--) {
@@ -64,14 +58,17 @@ public class PQHeap implements PQ {
         }
     }
 
+    // returns -1 if the heap index is empty
     public boolean isEmpty() {
         return lastHeapIndex == -1;
     }
 
+    // returns the left child of a parrent in accordance to the heap structure
     private int getLeftChildIndex(int index) {
         return 2 * index + 1;
     }
 
+    // returns the right child of a parrent in accordance to the heap structure
     private int getRightChildIndex(int index) {
         return 2 * index + 2;
     }
