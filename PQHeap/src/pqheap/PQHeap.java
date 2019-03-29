@@ -3,35 +3,53 @@
  * @author Simon sije817@student.sdu.dk
  * @author Joakim joala09@student.sdu.dk
  */
+
+package pqheap;
+
 public class PQHeap implements PQ {
-    int lastHeapIndex = -1;
+    int lastHeapIndex = 0;
     Element[] elements;
 
     public PQHeap(int maxElms) {
         elements = new Element[maxElms];
     }
-    
+    // Method for taking out the smallest element in the heap
     public Element extractMin() {
-        // Swapper first and last element
-        Element temp = elements[0];
-        elements[0] = elements[lastHeapIndex];
-        elements[lastHeapIndex] = null; // Removes last elemt.
-        // tick down heap size 
+        // creating a local variable
+        Element min = elements[0];
         lastHeapIndex--;
-        // resort the list
-        Sort();
-        return temp;
+        elements[0] = elements[lastHeapIndex];
+        // 
+        heapify(lastHeapIndex, 0);
+        return min;
+    }
+    
+    public void heapIncreaseKey(int i){
+        
+        while(i > 0 && elements[getParent(i)].getKey() > elements[i].getKey()){
+            Element temp = elements[getParent(i)];
+            elements[getParent(i)] = elements[i];
+            elements[i] = temp;
+            i = getParent(i);
+        }
+//        System.out.println("is out " + elements.length + " " + lastHeapIndex);
     }
 
     //inserts the elements into the array at the index after the last non-empty index.
     public void insert(Element e) {
-        lastHeapIndex++;
+        
+        
         elements[lastHeapIndex] = e;
-        Sort();
+        
+        int i = lastHeapIndex;
+        lastHeapIndex = lastHeapIndex + 1;
+        
+        
+        heapIncreaseKey(i);
     }
 
     //used to create the sudo ordered heapstructure.
-    private void makeHeap(int length, int index) {
+    private void heapify(int length, int index) {
         int smallest = index;
         int leftChild = getLeftChildIndex(index);
         int rightChild = getRightChildIndex(index);
@@ -46,16 +64,13 @@ public class PQHeap implements PQ {
             Element temp = elements[index];
             elements[index] = elements[smallest];
             elements[smallest] = temp;
-            makeHeap(length, smallest);
+            heapify(length, smallest);
         }
     }
-
-    //sorts the array in accordance to the heap structure.
-    private void Sort() {
-        int length = lastHeapIndex+1;
-        for (int i = length / 2 - 1; i >= 0; i--) {
-            makeHeap(length, i);
-        }
+    
+    public int getParent(int index){
+        index = index - 1;
+        return index / 2;
     }
 
     // returns -1 if the heap index is empty
