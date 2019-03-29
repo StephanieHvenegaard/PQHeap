@@ -19,7 +19,7 @@ public class PQHeap implements PQ {
         Element min = elements[0];
         lastHeapIndex--;
         elements[0] = elements[lastHeapIndex];
-        // 
+        // restructure the heap after extracting the minimum have been swapped and extracted
         heapify(lastHeapIndex, 0);
         return min;
     }
@@ -32,19 +32,15 @@ public class PQHeap implements PQ {
             elements[i] = temp;
             i = getParent(i);
         }
-//        System.out.println("is out " + elements.length + " " + lastHeapIndex);
     }
 
     //inserts the elements into the array at the index after the last non-empty index.
     public void insert(Element e) {
-        
-        
+        //setting the element into the lastHeapIndex
         elements[lastHeapIndex] = e;
-        
         int i = lastHeapIndex;
         lastHeapIndex = lastHeapIndex + 1;
-        
-        
+        //runs the method for inserting the increasing the key
         heapIncreaseKey(i);
     }
 
@@ -59,15 +55,16 @@ public class PQHeap implements PQ {
         if (rightChild < length && elements[rightChild].getKey() < elements[smallest].getKey()) {
             smallest = rightChild;
         }
-
+        
         if (smallest != index) {
             Element temp = elements[index];
             elements[index] = elements[smallest];
             elements[smallest] = temp;
+            //recursive call
             heapify(length, smallest);
         }
     }
-    
+    // returns the parent
     public int getParent(int index){
         index = index - 1;
         return index / 2;
