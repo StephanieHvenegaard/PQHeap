@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pqheap;
+package part2.dictbintree;
 
 /**
  *
  * @author Stephanie
  */
-public class test {
-    
+public interface Dict {
+    public void insert(int k);
+    public int[] orderedTraversal();
+    public boolean search(int k);
 }
+
