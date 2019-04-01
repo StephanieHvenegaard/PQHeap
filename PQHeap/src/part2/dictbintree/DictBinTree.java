@@ -8,8 +8,9 @@ package part2.dictbintree;
 import java.util.ArrayList;
 
 /**
- *
- * @author Stephanie
+ * @author Stephanie sthve16@student.sdu.dk
+ * @author Simon sije817@student.sdu.dk
+ * @author Joakim joala09@student.sdu.dk
  */
 public class DictBinTree implements Dict {
 
@@ -34,29 +35,29 @@ public class DictBinTree implements Dict {
     @Override
     public void insert(int k) {
         Node z = new Node(k);
-        Node y = null;                                                          // modsvare Sudo linje 1       
-        Node x = root;                                                          // modsvare Sudo linje 2 x=T.root;       
-        while (x != null) // modsvare Sudo linje 3;       
+        Node y = null;                                                          // modsvare Pseudo linje 1       
+        Node x = root;                                                          // modsvare Pseudo linje 2 x=T.root;       
+        while (x != null) // modsvare Pseudo linje 3;       
         {
-            y = x;                                                              // modsvare Sudo linje 4      
-            if (z.key < x.key) // modsvare Sudo linje 5
+            y = x;                                                              // modsvare Pseudo linje 4      
+            if (z.key < x.key) // modsvare Pseudo linje 5
             {
-                x = x.left;                                                     // modsvare Sudo linje 6
-            } else //modsvare Sudo linje 7
+                x = x.left;                                                     // modsvare Pseudo linje 6
+            } else //modsvare Pseudo linje 7
             {
-                x = x.right;                                                    //modsvare Sudo linje 7
+                x = x.right;                                                    //modsvare Pseudo linje 7
             }
         }
-        //z.parrent = y;                      // not needded                    //modsvare Sudo linje 8
-        if (y == null) //modsvare Sudo linje 9
+        //z.parrent = y;                      // not needded                    //modsvare Pseudo linje 8
+        if (y == null) //modsvare Pseudo linje 9
         {
-            root = z;                         // tree T was empty               //modsvare Sudo linje 10
-        } else if (z.key < y.key) //modsvare Sudo linje 11               
+            root = z;                         // tree T was empty               //modsvare Pseudo linje 10
+        } else if (z.key < y.key) //modsvare Pseudo linje 11               
         {
-            y.left = z;                                                         //modsvare Sudo linje 12                                          
+            y.left = z;                                                         //modsvare Pseudo linje 12                                          
         } else {
             y.right = z;
-        }                                                                       //modsvare Sudo linje 13
+        }                                                                       //modsvare Pseudo linje 13
         treesize++;                         // increments the treesize now that a node has been added. 
     }
 
@@ -106,7 +107,7 @@ public class DictBinTree implements Dict {
      * @param x node to asses
      */
     private void orderedTreeWalk(int[] a, Node x) {
-        // if this is wrong please show a better method.
+        
         if (x != null) //1 if x != NIL
         {
             orderedTreeWalk(a, x.left);      //2 INORDER-TREE-WALK(.x: left)/
