@@ -14,13 +14,23 @@ import java.util.ArrayList;
 public class DictBinTree implements Dict {
 
     //HashMap<Integer, Integer> Tree = new HashMap<>();
-    private Node root;
-    int treesize = 0;
+    private Node root;                  // root node
+    int treesize = 0;                   // number of nodes in tree
+    int tranversialIndex = 0;           // current index used in the Ordered transverse method for a accurate transverse
 
+    /**
+     * Constructor sets root element to null;
+     */
     public DictBinTree() {
         root = null;
     }
 
+    /**
+     * create a new node with data k, finds the correct location to insert the
+     * node.
+     *
+     * @param k data key for the node
+     */
     @Override
     public void insert(int k) {
         Node z = new Node(k);
@@ -31,89 +41,116 @@ public class DictBinTree implements Dict {
             y = x;                                                              // modsvare Sudo linje 4      
             if (z.key < x.key) // modsvare Sudo linje 5
             {
-                x = x.left;                                             // modsvare Sudo linje 6
+                x = x.left;                                                     // modsvare Sudo linje 6
             } else //modsvare Sudo linje 7
             {
-                x = x.right;                                            //modsvare Sudo linje 7
+                x = x.right;                                                    //modsvare Sudo linje 7
             }
         }
-        //z.parrent = y;                                                      //modsvare Sudo linje 8
+        //z.parrent = y;                      // not needded                    //modsvare Sudo linje 8
         if (y == null) //modsvare Sudo linje 9
         {
-            root = z;                  // tree T was empty               //modsvare Sudo linje 10
-        }
-        else if (z.key < y.key) //modsvare Sudo linje 11               
+            root = z;                         // tree T was empty               //modsvare Sudo linje 10
+        } else if (z.key < y.key) //modsvare Sudo linje 11               
         {
-            y.left = z;                                                  //modsvare Sudo linje 12                                          
-        } 
-        else {
+            y.left = z;                                                         //modsvare Sudo linje 12                                          
+        } else {
             y.right = z;
-        }                                             //modsvare Sudo linje 13
-        treesize++;
+        }                                                                       //modsvare Sudo linje 13
+        treesize++;                         // increments the treesize now that a node has been added. 
     }
 
+    /**
+     * starts the ordered tranversial
+     *
+     * @return a array of the data keys in order from smallest to largest.
+     */
     @Override
     public int[] orderedTraversal() {
         // first try did not work
         int[] returnedArray = new int[treesize];
         //orderedTreeWalk(returnedArray, 0, root);
-        
+        tranversialIndex = 0;
         // not the right way. need fix
         ArrayList<Integer> a = new ArrayList<>();
-        ALTorderedTreeWalk(a, root);
-        for (int i = 0; i < a.size();i++)
-        {
-            returnedArray[i]= a.get(i);
-        }
+
+        orderedTreeWalk(returnedArray, root);
+//        for (int i = 0; i < a.size();i++)
+//        {
+//            returnedArray[i]= a.get(i);
+//        }
         return returnedArray;
 
     }
 
-       private void ALTorderedTreeWalk(ArrayList<Integer> a, Node x) {
+    /**
+     * alternative test method, turnes out to be unnessasary and to slow
+     *
+     * @param a list of returned data
+     * @param x current assed node.
+     */
+    private void ALTorderedTreeWalk(ArrayList<Integer> a, Node x) {
         // if this is wrong please show a better method.
-        if (x != null)                          //1 if x != NIL
+        if (x != null) //1 if x != NIL
         {
-            ALTorderedTreeWalk(a,  x.left);      //2 INORDER-TREE-WALK(.x: left)/
+            ALTorderedTreeWalk(a, x.left);      //2 INORDER-TREE-WALK(.x: left)/
             a.add(x.key);                       //3 print x:key       
-            ALTorderedTreeWalk(a,  x.right);     //4 INORDER-TREE-WALK.(x:right)/
+            ALTorderedTreeWalk(a, x.right);     //4 INORDER-TREE-WALK.(x:right)/
         }
     }
 
-    private void orderedTreeWalk(int[] a, int i, Node x) {
+    /**
+     * recusive walk through the nodes and finds all the data.
+     *
+     * @param a array, of returned data
+     * @param x node to asses
+     */
+    private void orderedTreeWalk(int[] a, Node x) {
         // if this is wrong please show a better method.
-        if (x != null)                          //1 if x != NIL
+        if (x != null) //1 if x != NIL
         {
-            orderedTreeWalk(a, i, x.left);      //2 INORDER-TREE-WALK(.x: left)/
-            a[i] = x.key;                       //3 print x:key
-            i++;
-            orderedTreeWalk(a, i, x.right);     //4 INORDER-TREE-WALK.(x:right)/
+            orderedTreeWalk(a, x.left);      //2 INORDER-TREE-WALK(.x: left)/
+            a[tranversialIndex] = x.key;     //3 print x:key
+            tranversialIndex++;              // incrememnt the index for the array 
+            orderedTreeWalk(a, x.right);     //4 INORDER-TREE-WALK.(x:right)/
         }
     }
-
+    /**
+     * searches for key data k in the tree returns true if found and false if not 
+     * @param k data key to look up
+     * @return result
+     */
     @Override
     public boolean search(int k) {
-        return search(root, k) != null; // return true if node is found.
+        return search(root, k) != null;         // return true if node is found.
     }
-
+/**
+ * rcursive search that traverses every node to se if the node with k as key can be found 
+ * it goes from left to right through the tree.
+ * @param x node to asses
+ * @param k key to look for.
+ * @return 
+ */
     private Node search(Node x, int k) {
-        if (x == null || k == x.key) //1 if x == NIL or k == x:key
+        if (x == null || k == x.key)            //1 if x == NIL or k == x:key
         {
-            return x;                       //2 return x
+            return x;                           //2 return x
         }
-        if (k < x.key) //3 if k < x:key
+        if (k < x.key)                          //3 if k < x:key
         {
             return search(x.left, k);           //4 return TREE-SEARCH.x: left; k/
         } else {
-            return search(x.right, k);       //5 else return TREE-SEARCH.x:right; k/
+            return search(x.right, k);          //5 else return TREE-SEARCH.x:right; k/
         }
     }
 
-    /* A binary tree node has key, pointer to  
-    left child and a pointer to right child */
+/**
+ * data object to use in the tree it stores a key and the next left and right node.
+ */
     class Node {
 
         int key;
-        Node left, right, parrent;
+        Node left, right;
 
         // constructor 
         Node(int key) {

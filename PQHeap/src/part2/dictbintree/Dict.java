@@ -6,8 +6,7 @@
 package part2.dictbintree;
 
 /**
- *
- * @author Stephanie
+ * provided interface.
  */
 public interface Dict {
     public void insert(int k);
