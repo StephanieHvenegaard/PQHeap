@@ -1,11 +1,15 @@
+
 public class PQHeap implements PQ {
+
     int lastHeapIndex = 0;
     HuffmanNode[] elements;
 
     public PQHeap(int maxElms) {
         elements = new HuffmanNode[maxElms];
     }
+
     // Method for taking out the smallest element in the heap
+    @Override
     public HuffmanNode extractMin() {
         // creating a local variable
         HuffmanNode min = elements[0];
@@ -15,10 +19,10 @@ public class PQHeap implements PQ {
         heapify(lastHeapIndex, 0);
         return min;
     }
-    
-    public void heapIncreaseKey(int i){
-        
-        while(i > 0 && elements[getParent(i)].getKey() > elements[i].getKey()){
+
+    public void heapIncreaseKey(int i) {
+
+        while (i > 0 && elements[getParent(i)].key> elements[i].key) {
             HuffmanNode temp = elements[getParent(i)];
             elements[getParent(i)] = elements[i];
             elements[i] = temp;
@@ -27,6 +31,7 @@ public class PQHeap implements PQ {
     }
 
     //inserts the elements into the array at the index after the last non-empty index.
+    @Override
     public void insert(HuffmanNode e) {
         //setting the element into the lastHeapIndex
         elements[lastHeapIndex] = e;
@@ -41,13 +46,13 @@ public class PQHeap implements PQ {
         int smallest = index;
         int leftChild = getLeftChildIndex(index);
         int rightChild = getRightChildIndex(index);
-        if (leftChild < length && elements[leftChild].getKey() < elements[smallest].getKey()) {
+        if (leftChild < length && elements[leftChild].key < elements[smallest].key) {
             smallest = leftChild;
         }
-        if (rightChild < length && elements[rightChild].getKey() < elements[smallest].getKey()) {
+        if (rightChild < length && elements[rightChild].key < elements[smallest].key) {
             smallest = rightChild;
         }
-        
+
         if (smallest != index) {
             HuffmanNode temp = elements[index];
             elements[index] = elements[smallest];
@@ -56,8 +61,9 @@ public class PQHeap implements PQ {
             heapify(length, smallest);
         }
     }
+
     // returns the parent
-    public int getParent(int index){
+    public int getParent(int index) {
         index = index - 1;
         return index / 2;
     }
@@ -65,6 +71,10 @@ public class PQHeap implements PQ {
     // returns -1 if the heap index is empty
     public boolean isEmpty() {
         return lastHeapIndex == -1;
+    }
+
+    public int size() {
+        return lastHeapIndex;
     }
 
     // returns the left child of a parrent in accordance to the heap structure
