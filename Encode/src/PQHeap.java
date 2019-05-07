@@ -1,22 +1,14 @@
-/*
- * @author Stephanie sthve16@student.sdu.dk
- * @author Simon sije817@student.sdu.dk
- * @author Joakim joala09@student.sdu.dk
- */
-
-package encode;
-
 public class PQHeap implements PQ {
     int lastHeapIndex = 0;
-    Element[] elements;
+    HuffmanNode[] elements;
 
     public PQHeap(int maxElms) {
-        elements = new Element[maxElms];
+        elements = new HuffmanNode[maxElms];
     }
     // Method for taking out the smallest element in the heap
-    public Element extractMin() {
+    public HuffmanNode extractMin() {
         // creating a local variable
-        Element min = elements[0];
+        HuffmanNode min = elements[0];
         lastHeapIndex--;
         elements[0] = elements[lastHeapIndex];
         // restructure the heap after extracting the minimum have been swapped and extracted
@@ -27,7 +19,7 @@ public class PQHeap implements PQ {
     public void heapIncreaseKey(int i){
         
         while(i > 0 && elements[getParent(i)].getKey() > elements[i].getKey()){
-            Element temp = elements[getParent(i)];
+            HuffmanNode temp = elements[getParent(i)];
             elements[getParent(i)] = elements[i];
             elements[i] = temp;
             i = getParent(i);
@@ -35,7 +27,7 @@ public class PQHeap implements PQ {
     }
 
     //inserts the elements into the array at the index after the last non-empty index.
-    public void insert(Element e) {
+    public void insert(HuffmanNode e) {
         //setting the element into the lastHeapIndex
         elements[lastHeapIndex] = e;
         int i = lastHeapIndex;
@@ -57,7 +49,7 @@ public class PQHeap implements PQ {
         }
         
         if (smallest != index) {
-            Element temp = elements[index];
+            HuffmanNode temp = elements[index];
             elements[index] = elements[smallest];
             elements[smallest] = temp;
             //recursive call
