@@ -10,5 +10,7 @@ package encode;
  * @author simon
  */
 public class Decode {
-    
+    public static void main(String[] args) {
+        
+    }
 }
