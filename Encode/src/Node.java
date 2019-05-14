@@ -1,0 +1,13 @@
+public class Node {
+
+    int key;
+    Element left;
+    Element right;
+
+    // constructor 
+    Node(int key) {
+        this.key = key;
+        left = null;
+        right = null;
+    }
+}

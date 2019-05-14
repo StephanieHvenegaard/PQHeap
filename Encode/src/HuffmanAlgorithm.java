@@ -1,11 +1,10 @@
 
-
 public class HuffmanAlgorithm {
 
     // recursive function to print the 
     // huffman-code through the tree traversal. 
     // Here s is the huffman - code generated. 
-    public static void printCode(HuffmanNode root, String s) {
+    public static void printCode(Element root, String s) {
 
         // base case; if the left and right are null 
         // then its a leaf node and we print 
@@ -26,16 +25,16 @@ public class HuffmanAlgorithm {
     }
 
     // main function 
-    public void buildtree(int[] bytefreq){
+    public void buildtree(int[] bytefreq) {
         // creating a priority queue q. 
         // makes a min-priority queue(min-heap). 
-        PQHeap q = new PQHeap(256);
+        PQHeap q = new PQHeap(bytefreq.length);
 
         for (int i = 0; i < bytefreq.length; i++) {
 
             // creating a Huffman node object 
             // and add it to the priority queue. 
-            HuffmanNode hn = new HuffmanNode();
+            Element hn = new Element();
 
             hn.key = i;
             hn.data = bytefreq[i];
@@ -46,10 +45,11 @@ public class HuffmanAlgorithm {
             // add functions adds 
             // the huffman node to the queue. 
             q.insert(hn);
-        }
 
+        }
+        
         // create a root node 
-        HuffmanNode root = null;
+        Element root = null;
 
         // Here we will extract the two minimum value 
         // from the heap each time until 
@@ -58,13 +58,13 @@ public class HuffmanAlgorithm {
         while (q.size() > 1) {
 
             // first min extract. 
-            HuffmanNode x = q.extractMin();
+            Element x = q.extractMin();
 
             // second min extarct. 
-            HuffmanNode y =q.extractMin();
+            Element y = q.extractMin();
 
             // new node f which is equal 
-            HuffmanNode f = new HuffmanNode();
+            Element f = new Element();
 
             // to the sum of the frequency of the two nodes 
             // assigning values to the f node. 
@@ -82,10 +82,14 @@ public class HuffmanAlgorithm {
 
             // add this node to the priority-queue. 
             q.insert(f);
+
+            q.printElements();
+            
+            System.out.println("----------------------------------------------");
         }
 
         // print the codes by traversing the tree 
-        printCode(root, "");
+//        printCode(root, "");
     }
 } 
 

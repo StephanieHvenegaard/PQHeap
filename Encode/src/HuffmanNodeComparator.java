@@ -5,11 +5,11 @@ import java.util.Comparator;
 // on the basis of one of its attribute. 
 // Here we will be compared 
 // on the basis of data values of the nodes. 
-public class HuffmanNodeComparator implements Comparator<HuffmanNode> { 
+public class HuffmanNodeComparator implements Comparator<Element> { 
         @Override
-	public int compare(HuffmanNode x, HuffmanNode y) 
+	public int compare(Element x, Element y) 
 	{ 
 
-		return x.data - y.data; 
+		return x.getData() - y.getData(); 
 	} 
 } 

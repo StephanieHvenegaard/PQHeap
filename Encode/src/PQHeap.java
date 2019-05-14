@@ -2,17 +2,17 @@
 public class PQHeap implements PQ {
 
     int lastHeapIndex = 0;
-    HuffmanNode[] elements;
+    Element[] elements;
 
     public PQHeap(int maxElms) {
-        elements = new HuffmanNode[maxElms];
+        elements = new Element[maxElms];
     }
 
     // Method for taking out the smallest element in the heap
     @Override
-    public HuffmanNode extractMin() {
+    public Element extractMin() {
         // creating a local variable
-        HuffmanNode min = elements[0];
+        Element min = elements[0];
         lastHeapIndex--;
         elements[0] = elements[lastHeapIndex];
         // restructure the heap after extracting the minimum have been swapped and extracted
@@ -22,8 +22,8 @@ public class PQHeap implements PQ {
 
     public void heapIncreaseKey(int i) {
 
-        while (i > 0 && elements[getParent(i)].key> elements[i].key) {
-            HuffmanNode temp = elements[getParent(i)];
+        while (i > 0 && elements[getParent(i)].getKey()> elements[i].getKey()) {
+            Element temp = elements[getParent(i)];
             elements[getParent(i)] = elements[i];
             elements[i] = temp;
             i = getParent(i);
@@ -32,7 +32,7 @@ public class PQHeap implements PQ {
 
     //inserts the elements into the array at the index after the last non-empty index.
     @Override
-    public void insert(HuffmanNode e) {
+    public void insert(Element e) {
         //setting the element into the lastHeapIndex
         elements[lastHeapIndex] = e;
         int i = lastHeapIndex;
@@ -46,15 +46,15 @@ public class PQHeap implements PQ {
         int smallest = index;
         int leftChild = getLeftChildIndex(index);
         int rightChild = getRightChildIndex(index);
-        if (leftChild < length && elements[leftChild].key < elements[smallest].key) {
+        if (leftChild < length && elements[leftChild].getKey() < elements[smallest].getKey()) {
             smallest = leftChild;
         }
-        if (rightChild < length && elements[rightChild].key < elements[smallest].key) {
+        if (rightChild < length && elements[rightChild].getKey() < elements[smallest].getKey()) {
             smallest = rightChild;
         }
 
         if (smallest != index) {
-            HuffmanNode temp = elements[index];
+            Element temp = elements[index];
             elements[index] = elements[smallest];
             elements[smallest] = temp;
             //recursive call
@@ -85,5 +85,18 @@ public class PQHeap implements PQ {
     // returns the right child of a parrent in accordance to the heap structure
     private int getRightChildIndex(int index) {
         return 2 * index + 2;
+    }
+    // Prints out the elemenst in the Heap, nice for debugging
+    public void printElements()
+    {
+        for (int i = 0; i < elements.length; i++) {
+            Element hn = elements[i];
+            if(hn == null)
+                System.out.println("[     ]");
+            else{
+            System.out.println("["+ hn.getKey()+":"+ hn.getData()+"]");
+            
+            }
+            }
     }
 }

@@ -1,4 +1,14 @@
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+
+
+
+
 /**
  *
  * @author Simon Nyborg Jensen sije817@student.sdu.dk
@@ -6,12 +16,28 @@
  * @author Stephanie Rømer Hvenegaard sthve16@student.sdu.dk
  */
 public class Encode {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
     
+    public Encode(){
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        FileInputStream inFile = new FileInputStream(args[0]);
+        FileOutputStream outFile = new FileOutputStream(args[1]);
+        
+        
+        int[] byteFreq = new int[256];
+        
+        int i = inFile.read();
+        byteFreq[i]++;
+        while((i = inFile.read())>-1){
+            byteFreq[i]++;
+        }
+        System.out.println("ended");
+        
+        HuffmanAlgorithm huffman = new HuffmanAlgorithm();
+        
+        huffman.buildtree(byteFreq);
+        
         
     }
     

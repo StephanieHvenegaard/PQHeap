@@ -1,6 +1,6 @@
 public interface PQ {
 
-    public HuffmanNode extractMin();
+    public Element extractMin();
 
-    public void insert(HuffmanNode e);
+    public void insert(Element e);
 }
