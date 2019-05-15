@@ -1,26 +1,40 @@
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-
 public class HuffmanAlgorithm {
-    HashMap<Integer,String> codes = new  HashMap<>();
-            
-    
-    public void generateCode(Element element, String code) {
+
+    HashMap<Integer, String> dataCodes = new HashMap<>();
+    HashMap<String, Integer> codeCodes = new HashMap<>();
+
+    public void generateFreqCode(Element element, String code) {
         if (element.getData() instanceof Node) {
             Node node = (Node) element.getData();
             if (node.left == null && node.right == null) {
-                codes.put((int)element.getData(),code);
+                codeCodes.put(code, (int) element.getData());
                 return;
             }
-            generateCode(node.left, code + "0");
-            generateCode(node.right, code + "1");
-        } else {         
-            codes.put((int)element.getData(),code);
+            generateDataCode(node.left, code + "0");
+            generateDataCode(node.right, code + "1");
+        } else {
+            codeCodes.put(code, (int) element.getData());
             return;
         }
 
+    }
+
+    public void generateDataCode(Element element, String code) {
+        if (element.getData() instanceof Node) {
+            Node node = (Node) element.getData();
+            if (node.left == null && node.right == null) {
+                dataCodes.put((int) element.getData(), code);
+                return;
+            }
+            generateDataCode(node.left, code + "0");
+            generateDataCode(node.right, code + "1");
+        } else {
+            dataCodes.put((int) element.getData(), code);
+            return;
+        }
 
     }
 
@@ -53,9 +67,8 @@ public class HuffmanAlgorithm {
         }
     }
 
-    // main function 
-    public HashMap<Integer,String> Encrypt(int[] bytefreq) {
-        codes.clear();
+    public HashMap<String, Integer> Decrypt(int[] bytefreq) {
+        codeCodes.clear();
 
         // creating a priority queue q. 
         // makes a min-priority queue(min-heap). 
@@ -98,9 +111,56 @@ public class HuffmanAlgorithm {
             q.insert(e);
         }
 
-        generateCode(root, "");
-        return codes;
+        generateFreqCode(root, "");
+        return codeCodes;
+    }
 
+    public HashMap<Integer, String> Encrypt(int[] bytefreq) {
+        dataCodes.clear();
+
+        // creating a priority queue q. 
+        // makes a min-priority queue(min-heap). 
+        PQHeap q = new PQHeap(bytefreq.length);
+
+        for (int i = 0; i < bytefreq.length; i++) {
+            // creating an object 
+            Element e = new Element(bytefreq[i], i); //  Bytefreq = key | 0-255 data.
+            // and add it to the priority queue. 
+            q.insert(e);
+
+        }
+        // create a root node 
+        Element root = null;
+
+        // Here we will extract the two minimum value 
+        // from the heap each time until 
+        // its size reduces to 1, extract until 
+        // all the nodes are extracted. 
+        while (q.size() > 1) {
+            // first min extract. 
+            Element x = q.extractMin();
+            // second min extarct. 
+            Element y = q.extractMin();
+            // to the sum of the frequency of the two nodes 
+            // assigning values to the f node. 
+            // saves key for new node 
+            int key = y.getKey() + x.getKey();
+            // Create new tree struck object            
+            Node n = new Node(key);
+            // first extracted node as left child. 
+            n.left = x;
+            // second extracted node as the right child. 
+            n.right = y;
+            // new node f which is equal 
+            Element e = new Element(key, n);
+            // marking the f node as the root node. 
+            root = e;
+            // add this node to the priority-queue. 
+            q.insert(e);
+        }
+
+        generateDataCode(root, "");
+        return dataCodes;
     }
 } 
 
