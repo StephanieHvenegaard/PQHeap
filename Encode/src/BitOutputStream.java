@@ -36,7 +36,10 @@ public class BitOutputStream  implements AutoCloseable {
     // Writes a bit to the stream. The specified bit must be 0 or 1.
     public void writeBit(int b) throws IOException {
 	if (!(b == 0 || b == 1))
+        {
+            System.out.println(b);
 	    throw new IllegalArgumentException("Argument must be 0 or 1");
+        }
 	currentByte = currentByte << 1 | b;
 	numBitsInCurrentByte++;
 	if (numBitsInCurrentByte == 8) {
