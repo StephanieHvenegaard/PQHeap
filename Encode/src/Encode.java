@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 
 
 
@@ -22,9 +23,7 @@ public class Encode {
     
     public static void main(String[] args) throws FileNotFoundException, IOException {
         FileInputStream inFile = new FileInputStream(args[0]);
-        FileOutputStream outFile = new FileOutputStream(args[1]);
-        
-        
+        FileOutputStream outFile = new FileOutputStream(args[1]);        
         int[] byteFreq = new int[256];
         
         int i = inFile.read();
@@ -36,9 +35,6 @@ public class Encode {
         
         HuffmanAlgorithm huffman = new HuffmanAlgorithm();
         
-        huffman.buildtree(byteFreq);
-        
-        
-    }
-    
+        HashMap<Integer,String> hm= huffman.Encrypt(byteFreq);     
+    }    
 }
