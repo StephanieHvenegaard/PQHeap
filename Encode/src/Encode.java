@@ -65,8 +65,7 @@ public class Encode {
         HashMap<Integer,String> hm = huffman.Encrypt(byteFreq);     
         
         // Creating index map of bytes and freqs
-        for (int i = 0; i < byteFreq.length; i++) {
-            out.writeByte(i);            
+        for (int i = 0; i < byteFreq.length; i++) {                    
             out.writeByte(byteFreq[i]);
         }        
         System.out.println("ended writing bytes and codes table.");

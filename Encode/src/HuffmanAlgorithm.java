@@ -5,7 +5,7 @@ public class HuffmanAlgorithm {
 
     HashMap<Integer, String> dataCodes = new HashMap<>();
     HashMap<String, Integer> codeCodes = new HashMap<>();
-
+    // 
     public void generateFreqCode(Element element, String code) {
         if (element.getData() instanceof Node) {
             Node node = (Node) element.getData();
@@ -21,7 +21,7 @@ public class HuffmanAlgorithm {
         }
 
     }
-
+    // generates the hashmap  
     public void generateDataCode(Element element, String code) {
         if (element.getData() instanceof Node) {
             Node node = (Node) element.getData();
@@ -37,8 +37,7 @@ public class HuffmanAlgorithm {
         }
 
     }
-
-    // Debugging
+    // Debugging prints the codes of all bytes in the huffman
     private void printCode(Element element, String code) {
         // base case; if the left and right are null 
         // then its a leaf node and we print 
@@ -66,7 +65,7 @@ public class HuffmanAlgorithm {
             return;
         }
     }
-
+    // return Hashmap with codes/keys) and bytes of the huffman tree
     public HashMap<String, Integer> Decrypt(int[] bytefreq) {
         codeCodes.clear();
 
@@ -114,7 +113,7 @@ public class HuffmanAlgorithm {
         generateFreqCode(root, "");
         return codeCodes;
     }
-
+    // return Hashmap with byte(key) and codes of the huffman tree 
     public HashMap<Integer, String> Encrypt(int[] bytefreq) {
         dataCodes.clear();
 
