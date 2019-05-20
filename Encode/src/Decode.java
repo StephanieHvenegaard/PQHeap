@@ -34,15 +34,9 @@ public class Decode {
 
         // reads freqs from first part of.
         for (int i = 0; i < byteFreq.length; i++) {
-            ifreq = inFile.read();
+            ifreq = in.readInt();
             if (ifreq >= 0) {
-                if (ifreq <= 256) {
-                    byteFreq[i] = ifreq;
-                } else {
-                    // for making it easyer to debug we put a limint of one bytes worth of frequenzies. 
-                    // this substancially decreased the outfile size and made it easyer to read the binary data for testing
-                    throw new Exception("File is to big, exeted 255 occuranses for bytes. dum dum, di dum dum dum... dum");
-                }
+                byteFreq[i] = ifreq;
             } else {
                 throw new Exception("error at " + i);
             }
