@@ -5,10 +5,12 @@ public class HuffmanAlgorithm {
 
     HashMap<Integer, String> dataCodes = new HashMap<>();
     HashMap<String, Integer> codeCodes = new HashMap<>();
-    // 
+    // Generates a Hashmap with nodes consistent of elements and code
     public void generateFreqCode(Element element, String code) {
         if (element.getData() instanceof Node) {
             Node node = (Node) element.getData();
+            // Checks for if we have reached the end of the tree,
+            // if not then we fill it with code and element
             if (node.left == null && node.right == null) {
                 codeCodes.put(code, (int) element.getData());
                 return;

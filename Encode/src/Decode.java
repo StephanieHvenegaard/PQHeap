@@ -21,7 +21,7 @@ public class Decode {
             inName = args[0];
         }
 
-        // Make in and out streams.
+        // Make in and out FileStreams.
         FileInputStream inFile = new FileInputStream(inName);
         FileOutputStream outFile = new FileOutputStream(outName);
         BitOutputStream out = new BitOutputStream(outFile);
@@ -63,9 +63,9 @@ public class Decode {
         System.out.println("2/3 Succes");
         
         // Decoding file using huffman compression
-        String code = "";   //         
-        int iByte = -1;     //
-        int iBit;           //
+        String code = "";            
+        int iByte = -1;     
+        int iBit;           
         while ((iBit = in.readBit()) != -1) {           
             code += iBit + "";
             iByte = hm.get(code);
