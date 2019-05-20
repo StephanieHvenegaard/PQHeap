@@ -11,12 +11,12 @@ public class Decode {
 
         // Check for input or use default values for test.        
         if (args.length < 2) {
-            outName = "dehuff.text";
+            outName = "TestFile-Dehuff.txt";
         } else {
             outName = args[1];
         }
         if (args.length < 1) {
-            inName = "Test.huff";
+            inName = "TestFile.huff";
         } else {
             inName = args[0];
         }
@@ -29,11 +29,11 @@ public class Decode {
 
         // initiate array
         int[] byteFreq = new int[256];
-        
+
         int ifreq = -1;
 
         // reads freqs from first part of.
-        for (int i = 0; i < byteFreq.length; i++) {           
+        for (int i = 0; i < byteFreq.length; i++) {
             ifreq = inFile.read();
             if (ifreq >= 0) {
                 if (ifreq <= 256) {
@@ -57,21 +57,24 @@ public class Decode {
         // making new instance of Huffman.
         HuffmanAlgorithm huffman = new HuffmanAlgorithm();
         // Enkrypting data getting a hash map of bytes and codes
-        HashMap<String, Integer> hm = huffman.Decrypt(byteFreq);
+        Element element = huffman.Encrypt(byteFreq);
+        HashMap<String, Integer> hm = huffman.getCodeTable(element);
 
         System.out.println("ended writing bytes and codes table.");
         System.out.println("2/3 Succes");
-        
+
         // Decoding file using huffman compression
-        String code = "";            
-        int iByte = -1;     
-        int iBit;           
-        while ((iBit = in.readBit()) != -1) {           
+        String code = "";
+        int iByte = -1;
+        int iBit;
+        while ((iBit = in.readBit()) != -1) {
             code += iBit + "";
-            iByte = hm.get(code);
-            if (!(iByte == -1)) {                
-                outFile.write(iByte);
-                code = "";
+            if (hm.get(code) != null) {
+                iByte = hm.get(code);
+                if (!(iByte == -1)) {
+                    outFile.write(iByte);
+                    code = "";
+                }
             }
         }
 

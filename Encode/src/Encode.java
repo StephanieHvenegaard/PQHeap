@@ -27,7 +27,7 @@ public class Encode {
         
         // Check for input or use default values for test.        
         if(args.length <2)
-            outName = "Test.huff";
+            outName = "TestFile.huff";
         else 
             outName = args[1];
         if(args.length <1)
@@ -61,8 +61,9 @@ public class Encode {
         inFile = new FileInputStream(inName);
         // making new instance of Huffman.
         HuffmanAlgorithm huffman = new HuffmanAlgorithm();
-        // Enkrypting data getting a hash map of bytes and codes
-        HashMap<Integer,String> hm = huffman.Encrypt(byteFreq);     
+        // Enkrypting data getting a hash map of bytes and codes        
+        Element element = huffman.Encrypt(byteFreq);
+        HashMap<Integer,String> hm = huffman.getDataTable(element);                
         
         // Creating index map of bytes and freqs
         for (int i = 0; i < byteFreq.length; i++) {                    
